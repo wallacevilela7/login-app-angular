@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import {DefaultLoginLayoutComponent} from "../../components/default-login-layout/default-login-layout.component";
+import { DefaultLoginLayoutComponent } from "../../components/default-login-layout/default-login-layout.component";
 import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
+import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-loginpage',
@@ -9,17 +12,34 @@ import { PrimaryInputComponent } from '../../components/primary-input/primary-in
     ReactiveFormsModule,
     PrimaryInputComponent
   ],
+  providers: [LoginService],
   templateUrl: './loginpage.component.html',
   styleUrl: './loginpage.component.scss'
 })
 export class LoginpageComponent {
 
-  loginForm!:  FormGroup;
-  
-  constructor() {
+  loginForm!: FormGroup;
+
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private toastService: ToastrService
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     })
+  }
+
+
+  submit() {
+    this.loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
+      next: () => this.toastService.success("Login feito com sucesso"),
+      error: () => this.toastService.error("Login falhou, verifique suas credenciais")
+    })
+  }
+
+  navigate() {
+    this.router.navigate(["/singup"]);
   }
 }

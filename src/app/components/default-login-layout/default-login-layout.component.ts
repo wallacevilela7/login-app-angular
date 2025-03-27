@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {Title} from "@angular/platform-browser";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-default-login-layout',
@@ -9,7 +9,17 @@ import {Title} from "@angular/platform-browser";
 })
 export class DefaultLoginLayoutComponent {
 
-    @Input() title: string = "";
-    @Input() primaryButtonText: string = "";
-    @Input() secondaryButtonText: string = "";
+  @Input() title: string = "";
+  @Input() primaryButtonText: string = "";
+  @Input() secondaryButtonText: string = "";
+  @Output("submit") onSubmit = new EventEmitter();
+  @Output("navigate") onNavigate = new EventEmitter();
+
+  submit() {
+    this.onSubmit.emit();
+  }
+
+  navigate() {
+    this.onNavigate.emit();
+  }
 }

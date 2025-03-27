@@ -1,6 +1,8 @@
 <app-default-login-layout title="Login into your account"
                           primaryButtonText="Login now"
                           secondaryButtonText="Sing up now"
+                          (submit)="submit()"
+                          (navigate)="navigate()">
 >
     <form [formGroup]="loginForm">
         <app-primary-input
