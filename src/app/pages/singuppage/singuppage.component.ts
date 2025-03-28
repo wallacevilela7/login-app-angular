@@ -7,7 +7,7 @@ import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
 
 interface singupForm {
-  name: FormControl;
+  username: FormControl;
   email: FormControl;
   password: FormControl;
   confirmPassword: FormControl;
@@ -32,7 +32,7 @@ export class SinguppageComponent {
     private toastService: ToastrService
   ) {
     this.singupForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      username: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
@@ -41,9 +41,9 @@ export class SinguppageComponent {
 
 
   submit() {
-      this.loginService.login(this.singupForm.value.email, this.singupForm.value.password).subscribe({
-      next: () => this.toastService.success("Login feito com sucesso"),
-      error: () => this.toastService.error("Login falhou, verifique suas credenciais")
+      this.loginService.singup(this.singupForm.value.username, this.singupForm.value.email, this.singupForm.value.password).subscribe({
+      next: () => this.toastService.success("Singup feito com sucesso"),
+      error: () => this.toastService.error("Singup falhou, tente novamente mais tarde")
     })
   }
 

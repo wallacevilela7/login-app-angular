@@ -1,16 +1,16 @@
 <app-default-login-layout title="Sing in and start today"
                           primaryButtonText="Singup now"
-                          secondaryButtonText="Loginnow"
+                          secondaryButtonText="Login now"
                           (submit)="submit()"
                           (navigate)="navigate()"
                           [disablePrimaryButton]="singupForm.invalid"
 >
     <form [formGroup]="singupForm">
         <app-primary-input
-            formControlName="name" 
-            inputName="name" 
+            formControlName="username" 
+            inputName="username" 
             type="text" 
-            label="Your name" 
+            label="Your username" 
             placeholder="John Doe"
         >
             <img src="assets/svg/email-icon.svg" alt="email" />
